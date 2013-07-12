@@ -2,6 +2,7 @@ class Words
 
   def initialize(source)
     @source = source
+    @word_counts = Hash.new(0)
   end
 
   def count
@@ -18,19 +19,15 @@ class Words
   attr_accessor :word_counts
 
   def words
-    source.split(/\W+/).map { |word| word.downcase }
+    source.downcase.split(/\W+/)
   end
 
   def count_word(word)
-    if word_counts.has_key?(word)
-      word_counts[word] += 1
-    else
-      word_counts[word] = 1
-    end
+    word_counts[word] += 1
   end
 
   def reset_word_counts
-    self.word_counts = {}
+    self.word_counts = Hash.new(0)
   end
 
 end
