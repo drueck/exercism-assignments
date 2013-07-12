@@ -5,9 +5,8 @@ class Words
   end
 
   def count
-    words.reduce(Hash.new(0)) do |word_counts, word|
+    words.each_with_object(Hash.new(0)) do |word, word_counts|
       word_counts[word] += 1
-      word_counts
     end
   end
 
