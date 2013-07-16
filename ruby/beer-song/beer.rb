@@ -1,7 +1,7 @@
 class Beer
 
-  def verse(num_bottles)
-    BeerVerse.new(num_bottles).to_s
+  def verse(n_bottles)
+    BeerVerse.new(n_bottles).to_s
   end
 
   def sing(starting_bottles, ending_bottles=0)
@@ -16,22 +16,22 @@ end
 
 class BeerVerse
 
-  def initialize(num_bottles)
-    @num_bottles = num_bottles
+  def initialize(n_bottles)
+    @n_bottles = n_bottles
   end
 
-  attr_reader :num_bottles
+  attr_reader :n_bottles
 
   def to_s
-    "#{bottles_clause.capitalize} of beer on the wall, #{bottles_clause} of beer.\n" \
-    "#{action_clause}, #{bottles_remaining_clause} of beer on the wall.\n"
+    "#{bottles_fragment.capitalize} of beer on the wall, #{bottles_fragment} of beer.\n" \
+    "#{action_fragment}, #{bottles_remaining_fragment} of beer on the wall.\n"
   end
 
-  def bottles_remaining_clause
-    bottles_clause(num_bottles-1)
+  def bottles_remaining_fragment
+    bottles_clause(n_bottles-1)
   end
 
-  def bottles_clause(bottles=num_bottles)
+  def bottles_fragment(bottles=n_bottles)
     bottles = 99 if bottles < 0
     case bottles
     when 0 then "no more bottles"
@@ -40,8 +40,8 @@ class BeerVerse
     end
   end
 
-  def action_clause
-    case num_bottles
+  def action_fragment
+    case n_bottles
     when 0 then "Go to the store and buy some more"
     when 1 then "Take it down and pass it around"
     else "Take one down and pass it around"
