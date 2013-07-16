@@ -1,46 +1,59 @@
 class Beer
 
-  def verse(verse_number)
-    case verse_number
-    when 0 then zeroth_verse
-    when 1 then first_verse
-    when 2 then second_verse
-    when 3..99 then standard_verse(verse_number)
-    end
+  def verse(num_bottles)
+    BeerVerse.new(num_bottles).to_s
   end
 
-  def sing_loop(starting_verse, ending_verse=0)
-    starting_verse.downto(ending_verse).inject("") do |song, verse_number|
-      song << verse(verse_number) + "\n"
-    end
-  end
-
-  def sing(starting_verse, ending_verse=0)
-    if starting_verse == ending_verse
-      verse(ending_verse) + "\n"
+  def sing(starting_bottles, ending_bottles=0)
+    if starting_bottles == ending_bottles
+      verse(ending_bottles) + "\n"
     else
-      verse(starting_verse) + "\n" + sing(starting_verse-1, ending_verse)
+      verse(starting_bottles) + "\n" + sing(starting_bottles-1, ending_bottles)
     end
   end
 
-  def zeroth_verse
-    "No more bottles of beer on the wall, no more bottles of beer.\n" \
-    "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+end
+
+class BeerVerse
+
+  def initialize(num_bottles)
+    @num_bottles = num_bottles
   end
 
-  def first_verse
-    "1 bottle of beer on the wall, 1 bottle of beer.\n" \
-    "Take it down and pass it around, no more bottles of beer on the wall.\n"
+  attr_reader :num_bottles
+
+  def to_s
+    "#{first_bottles_clause} of beer on the wall, #{second_bottles_clause} of beer.\n" \
+    "#{action_clause}, #{bottles_remaining_clause} of beer on the wall.\n"
   end
 
-  def second_verse
-    "2 bottles of beer on the wall, 2 bottles of beer.\n" \
-    "Take one down and pass it around, 1 bottle of beer on the wall.\n"
+  def first_bottles_clause
+    bottles_clause.capitalize
   end
 
-  def standard_verse(n)
-    "#{n} bottles of beer on the wall, #{n} bottles of beer.\n" \
-    "Take one down and pass it around, #{n-1} bottles of beer on the wall.\n"
+  def second_bottles_clause
+    bottles_clause
+  end
+
+  def bottles_remaining_clause
+    bottles_clause(num_bottles-1)
+  end
+
+  def bottles_clause(bottles=num_bottles)
+    bottles = 99 if bottles < 0
+    case bottles
+    when 0 then "no more bottles"
+    when 1 then "1 bottle"
+    else "#{bottles} bottles"
+    end
+  end
+
+  def action_clause
+    case num_bottles
+    when 0 then "Go to the store and buy some more"
+    when 1 then "Take it down and pass it around"
+    else "Take one down and pass it around"
+    end
   end
 
 end
