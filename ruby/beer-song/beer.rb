@@ -23,16 +23,8 @@ class BeerVerse
   attr_reader :num_bottles
 
   def to_s
-    "#{first_bottles_clause} of beer on the wall, #{second_bottles_clause} of beer.\n" \
+    "#{bottles_clause.capitalize} of beer on the wall, #{bottles_clause} of beer.\n" \
     "#{action_clause}, #{bottles_remaining_clause} of beer on the wall.\n"
-  end
-
-  def first_bottles_clause
-    bottles_clause.capitalize
-  end
-
-  def second_bottles_clause
-    bottles_clause
   end
 
   def bottles_remaining_clause
