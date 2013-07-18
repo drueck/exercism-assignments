@@ -28,7 +28,7 @@ class BeerVerse
   end
 
   def bottles_remaining_fragment
-    bottles_clause(n_bottles-1)
+    bottles_fragment(n_bottles-1)
   end
 
   def bottles_fragment(bottles=n_bottles)
