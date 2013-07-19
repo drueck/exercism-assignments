@@ -2,14 +2,10 @@ defmodule Teenager do
 
   def hey(msg) do
     cond do
-      silent?(msg) ->
-        "Fine. Be that way."
-      shouting?(msg) ->
-        "Woah, chill out!"
-      asking?(msg) ->
-        "Sure."
-      true ->
-        "Whatever."
+      silent?(msg) -> "Fine. Be that way."
+      shouting?(msg) -> "Woah, chill out!"
+      asking?(msg) -> "Sure."
+      true -> "Whatever."
     end
   end
 
