@@ -1,23 +1,26 @@
-function splitIntoWords(str) {
-  // get rid of non-word characters at the beginning or end
-  // of the string before splitting to avoid empty string words
-  return str.replace(/^\W+|\W+$/g, '').split(/\W+/);
-}
+(function() {
 
-function Words(source) {
+  function splitIntoWords(str) {
+    return str.match(/\w+/g);
+  }
 
-  var words = splitIntoWords(source.toLowerCase());
-  var counts = {};
+  function Words(source) {
 
-  words.forEach(function(word) {
-    if(counts[word] === undefined) {
-      counts[word] = 0;
-    }
-    counts[word] = counts[word] + 1;
-  });
+    var words = splitIntoWords(source.toLowerCase());
+    var counts = {};
 
-  return { count: counts };
+    words.forEach(function(word) {
+      if(counts[word] === undefined) {
+        counts[word] = 0;
+      }
+      counts[word] = counts[word] + 1;
+    });
 
-}
+    return { count: counts };
 
-global.Words = Words;
+  }
+
+  global.Words = Words;
+
+})();
+
