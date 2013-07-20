@@ -1,10 +1,10 @@
-function Words(source) {
+function splitIntoWords(str) {
+  // get rid of non-word characters at the beginning or end
+  // of the string before splitting to avoid empty string words
+  return str.replace(/^\W+|\W+$/g, '').split(/\W+/);
+}
 
-  function splitIntoWords(str) {
-    // get rid of non-word characters at the beginning or end
-    // of the string before splitting to avoid empty string word
-    return str.replace(/^\W+|\W+$/g, '').split(/\W+/);
-  }
+function Words(source) {
 
   var words = splitIntoWords(source.toLowerCase());
   var counts = {};
