@@ -1,7 +1,10 @@
 class DNA < String
 
+  THYMIDINE = "T"
+  URACIL = "U"
+
   def to_rna
-    tr('T','U')
+    tr(THYMIDINE, URACIL)
   end
 
 end
