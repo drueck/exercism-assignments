@@ -7,10 +7,12 @@ class DNA
     @dna_string = dna_string
   end
 
-  attr_reader :dna_string
-
   def to_rna
     dna_string.tr(THYMIDINE, URACIL)
   end
+
+  private
+
+  attr_reader :dna_string
 
 end
