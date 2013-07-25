@@ -3,16 +3,16 @@ class DNA
   THYMIDINE = "T"
   URACIL = "U"
 
-  def initialize(dna_string)
-    @dna_string = dna_string
+  def initialize(sequence)
+    @sequence = sequence
   end
 
   def to_rna
-    dna_string.tr(THYMIDINE, URACIL)
+    sequence.tr(THYMIDINE, URACIL)
   end
 
   private
 
-  attr_reader :dna_string
+  attr_reader :sequence
 
 end
