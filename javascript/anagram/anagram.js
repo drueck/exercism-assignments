@@ -1,15 +1,17 @@
-function letters(word) {
-  return word.split("").sort().join("");
-}
-
 function Anagram(word) {
-  this.letters = letters(word);
+  this.letters = this.sortLetters(word);
 }
 
 Anagram.prototype.match = function(words) {
-  return words.filter(function(word) {
-    return letters(word) === this.letters;
-  }, this);
-}
+  return words.filter(this.isAnagram, this);
+};
+
+Anagram.prototype.sortLetters = function(word) {
+  return word.split("").sort().join("");
+};
+
+Anagram.prototype.isAnagram = function(word) {
+  return this.sortLetters(word) === this.letters;
+};
 
 module.exports = Anagram;
