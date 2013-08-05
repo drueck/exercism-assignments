@@ -5,21 +5,27 @@ class DNA
   end
 
   def hamming_distance(other_sequence)
-    mutations = 0
-    each_nucleotide_pair(other_sequence) do |nucleotide, other_nucleotide|
-      mutations += 1 if nucleotide != other_nucleotide
-    end
-    mutations
+    pairs_with_mutations(other_sequence).count
   end
 
   private
 
   attr_reader :sequence
 
-  def each_nucleotide_pair(other_sequence)
-    sequence.chars.zip(other_sequence.chars).each do |pair|
-      yield pair unless pair.include?(nil)
+  def pairs_with_mutations(other_sequence)
+    nucleotide_pairs(other_sequence).select do |n1, n2|
+      mutation?(n1, n2)
     end
+  end
+
+  def nucleotide_pairs(other_sequence)
+    sequence.chars.zip(other_sequence.chars).reject do |pair|
+      pair.include?(nil)
+    end
+  end
+
+  def mutation?(n1, n2)
+    n1 != n2
   end
 
 end
