@@ -14,6 +14,12 @@ describe('Anagram', function() {
     expect(matches).toEqual(['ab']);
   });
 
+  it("does not detect false positives", function() {
+    var detector = new Anagram("bba");
+    var matches = detector.match(['aab']);
+    expect(matches).toEqual([]);
+  });
+
   it("detects multiple anagrams",function() {
     var detector = new Anagram("abc");
     var matches = detector.match(['ab', 'abc', 'bac']);
