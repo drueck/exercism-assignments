@@ -20,16 +20,16 @@ defmodule WordsTest do
 
   test "ignore punctuation" do
     expected = HashDict.new [{"car", 1}, {"carpet", 1}, {"as", 1}, {"java", 1}, {"javascript", 1}]
-    # assert Words.count("car : carpet as java : javascript!!&@$%^&") == expected
+    assert Words.count("car : carpet as java : javascript!!&@$%^&") == expected
   end
 
   test "include numbers" do
     expected = HashDict.new [{"testing", 2}, {"1", 1}, {"2", 1}]
-    # assert Words.count("testing, 1, 2 testing") == expected
+    assert Words.count("testing, 1, 2 testing") == expected
   end
 
   test "normalize case" do
     expected = HashDict.new [{"go", 3}]
-    # assert Words.count("go Go GO") == expected
+    assert Words.count("go Go GO") == expected
   end
 end
