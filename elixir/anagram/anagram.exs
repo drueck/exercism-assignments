@@ -1,7 +1,7 @@
 defmodule Anagram do
 
   def match(word, candidates) do
-    Enum.filter(candidates, fn(candidate) -> anagrams?(word, candidate) end)
+    Enum.filter(candidates, anagrams?(&1, word))
   end
 
   defp anagrams?(word1, word2) do
@@ -9,7 +9,7 @@ defmodule Anagram do
   end
 
   defp sort_letters(word) do
-    String.downcase(word) |> String.codepoints |> Enum.sort |> Enum.join
+    String.downcase(word) |> String.codepoints |> Enum.sort
   end
 
 end
