@@ -11,10 +11,9 @@ defmodule Beer do
   end
 
   def verse(bottles) do
-    remaining_bottles = bottles - 1
     "#{bottles} bottles of beer on the wall, #{bottles} bottles of beer.\n" <>
     "Take one down and pass it around, " <>
-    "#{remaining_bottles} #{pluralize_bottle(remaining_bottles)} of beer on the wall.\n"
+    "#{bottles-1} #{pluralize_bottle(bottles-1)} of beer on the wall.\n"
   end
 
   defp pluralize_bottle(1), do: "bottle"
