@@ -1,21 +1,20 @@
 class Phone
 
-  # super ugly version, first to pass tests, not ready to submit
-  # just getting it up on github so I can keep working on it
+  NUMBER_LENGTH = 10
+  AREA_CODE_RANGE = 0..2
+  PREFIX_RANGE = 3..5
+  LINE_NUMBER_RANGE = 6..10
 
   def initialize(number)
     @unsanitized = number
   end
 
   def number
-    sanitized = strip_formatting(unsanitized)
-    trimmed = trim_leading_one(sanitized)
-    validated = validate(trimmed)
-    validated
+    @number ||= validated
   end
 
   def area_code
-    number[0..2]
+    number[AREA_CODE_RANGE]
   end
 
   def to_s
@@ -27,27 +26,27 @@ class Phone
   attr_reader :unsanitized
 
   def prefix
-    number[3..5]
+    number[PREFIX_RANGE]
   end
 
   def line_number
-    number[6..10]
+    number[LINE_NUMBER_RANGE]
   end
 
-  def strip_formatting(unsanitized_number)
-    unsanitized_number.gsub(/\D/,"")
+  def validated
+    trimmed.length == NUMBER_LENGTH ? trimmed : "0000000000"
   end
 
-  def trim_leading_one(sanitized_number)
-    if sanitized_number.start_with?("1") && sanitized_number.length == 11
-      sanitized_number.slice(1,10)
-    else
-      sanitized_number
-    end
+  def trimmed
+    includes_country_code? ? sanitized.slice(1, NUMBER_LENGTH) : sanitized
   end
 
-  def validate(trimmed)
-    trimmed.length == 10 ? trimmed : "0000000000"
+  def sanitized
+    unsanitized.gsub(/\D/,"")
+  end
+
+  def includes_country_code?
+    sanitized.start_with?("1") && sanitized.length == NUMBER_LENGTH + 1
   end
 
 end
