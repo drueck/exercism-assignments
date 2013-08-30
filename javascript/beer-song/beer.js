@@ -26,9 +26,9 @@ module.exports = {
 
     if(from_bottles === to_bottles) {
       return verse(from_bottles);
-    } else {
-      return verse(from_bottles) + "\n" + sing(from_bottles - 1, to_bottles);
     }
+
+    return verse(from_bottles) + "\n" + sing(from_bottles - 1, to_bottles);
 
   }
 
