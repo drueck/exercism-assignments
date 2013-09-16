@@ -19,7 +19,8 @@ defmodule Beer do
   defp pluralize_bottle(1), do: "bottle"
   defp pluralize_bottle(_), do: "bottles"
 
-  def sing(from, from), do: verse(from) <> "\n"
-  def sing(from, to // 0), do: verse(from) <> "\n" <> sing(from - 1, to)
+  def sing(from, to // 0) when from >= 0 when to >= 0 do
+    Enum.map_join(from..to, "\n", verse(&1)) <> "\n"
+  end
 
 end
