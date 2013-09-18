@@ -5,7 +5,7 @@ defmodule DNA do
   end
 
   def nucleotide_counts(strand) do
-    HashDict.new nucleotides, fn n -> { n, count(strand, n) } end
+    HashDict.new nucleotides, &{ &1, count(strand, &1) }
   end
 
   defp nucleotides do
