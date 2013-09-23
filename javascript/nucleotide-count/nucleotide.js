@@ -26,9 +26,7 @@ function DNA(sequence) {
   }
 
   function isValidNucleotide(letter) {
-    return ALL_NUCLEOTIDES.some(function(n) {
-      return n === letter;
-    });
+    return ALL_NUCLEOTIDES.indexOf(letter) != -1;
   }
 
   function nucleotides() {
