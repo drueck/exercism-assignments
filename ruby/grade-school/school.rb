@@ -1,7 +1,7 @@
 class School
 
   def initialize
-    @db = Hash.new { |hash, key| hash[key] = [] }
+    @db = Hash.new { |db, grade| db[grade] = [] }
   end
 
   attr_reader :db
