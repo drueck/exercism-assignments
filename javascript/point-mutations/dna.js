@@ -13,7 +13,7 @@ module.exports = function DNA(strand) {
     hammingDistance: function(otherStrand) {
       var mutations = 0;
       var commonLength = comparableLength(strand, otherStrand);
-      for (i=0; i < commonLength; i++) {
+      for (i = 0; i < commonLength; i++) {
         if (strand[i] !== otherStrand[i]) {
           mutations++;
         }
