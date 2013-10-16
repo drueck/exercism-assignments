@@ -1,6 +1,6 @@
 defmodule Phone do
 
-  @us_phone_number_length 10
+  @number_length 10
   @area_code_range 0..2
   @prefix_range 3..5
   @line_number_range 6..9
@@ -24,13 +24,9 @@ defmodule Phone do
     String.replace(formatted_number, %r/\D/, "")
   end
 
-  defp validate(number) do
-    case number do
-      << ?1, ten_digit :: [binary, size(10)] >> -> ten_digit
-      << ten_digit :: [binary, size(10)] >> -> ten_digit
-      _ -> "0000000000"
-    end
-  end
+  defp validate(<< ?1, number :: [binary, size(@number_length)]>>), do: number
+  defp validate(<< number :: [binary, size(@number_length)]>>), do: number
+  defp validate(_), do: "0000000000"
 
   defp prefix(number) do
     segment(number, @prefix_range)
