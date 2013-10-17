@@ -37,7 +37,7 @@ defmodule Phone do
   end
 
   defp segment(number, range) do
-    String.slice(number, Enum.at(range, 0), Enum.count(range))
+    String.slice(number, range.first, Enum.count(range))
   end
 
 end
