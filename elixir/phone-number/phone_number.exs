@@ -12,7 +12,7 @@ defmodule Phone do
   end
 
   def area_code(number) do
-    segment(number, @area_code_range)
+    String.slice(number, @area_code_range)
   end
 
   def pretty(formatted_number) do
@@ -29,15 +29,11 @@ defmodule Phone do
   defp validate(_), do: "0000000000"
 
   defp prefix(number) do
-    segment(number, @prefix_range)
+    String.slice(number, @prefix_range)
   end
 
   defp line_number(number) do
-    segment(number, @line_number_range)
-  end
-
-  defp segment(number, range) do
-    String.slice(number, range.first, Enum.count(range))
+    String.slice(number, @line_number_range)
   end
 
 end
