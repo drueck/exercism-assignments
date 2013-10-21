@@ -18,9 +18,7 @@ class Robot
   NUMERIC_LENGTH = 3
 
   def alpha_portion
-    (1..ALPHA_LENGTH).each_with_object("") do |_, alpha|
-      alpha << capital_letters.sample
-    end
+    ALPHA_LENGTH.times.collect { capital_letters.sample }.join("")
   end
 
   def numeric_portion
