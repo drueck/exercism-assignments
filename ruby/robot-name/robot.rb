@@ -18,11 +18,13 @@ class Robot
   NUMERIC_LENGTH = 3
 
   def alpha_portion
-    capital_letters.sample(ALPHA_LENGTH).join("")
+    (1..ALPHA_LENGTH).each_with_object("") do |_, alpha|
+      alpha << capital_letters.sample
+    end
   end
 
   def numeric_portion
-    "%0#{NUMERIC_LENGTH}d" % rand(10**NUMERIC_LENGTH - 1)
+    "%0#{NUMERIC_LENGTH}d" % rand(10 ** NUMERIC_LENGTH - 1)
   end
 
   def capital_letters
