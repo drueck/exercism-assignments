@@ -22,11 +22,15 @@ class Robot
   end
 
   def numeric_portion
-    "%0#{NUMERIC_LENGTH}d" % rand(10 ** NUMERIC_LENGTH - 1)
+    NUMERIC_LENGTH.times.collect { digits.sample }.join("")
   end
 
   def capital_letters
     ('A'..'Z').to_a
+  end
+
+  def digits
+    ('0'..'9').to_a
   end
 
 end
