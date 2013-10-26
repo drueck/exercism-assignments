@@ -1,7 +1,7 @@
 defmodule School do
 
   def add(roster, student, grade) do
-    HashDict.update(roster, grade, [student], &1 ++ [student])
+    HashDict.update(roster, grade, [student], &([ student | &1 ]))
   end
 
   def grade(roster, grade) do
