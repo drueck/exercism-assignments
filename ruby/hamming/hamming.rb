@@ -7,8 +7,8 @@ class Hamming
   private
 
   def self.homologous_pairs(strand1, strand2)
-    common_length = [strand1.length, strand2.length].min
-    strand1.chars.zip(strand2.chars).take(common_length)
+    shorter, longer = [strand1, strand2].sort_by(&:length)
+    shorter.chars.zip(longer.chars)
   end
 
   def self.mutation?(pair)
