@@ -1,18 +1,28 @@
 class Hamming
 
   def self.compute(strand1, strand2)
-    homologous_pairs(strand1, strand2).count { |pair| mutation?(pair) }
+    new(strand1, strand2).distance
+  end
+
+  def initialize(strand1, strand2)
+    @strand1, @strand2 = strand1, strand2
+  end
+
+  def distance
+    homologous_pairs.count { |pair| mutation?(*pair) }
   end
 
   private
 
-  def self.homologous_pairs(strand1, strand2)
+  attr_reader :strand1, :strand2
+
+  def homologous_pairs
     shorter, longer = [strand1, strand2].sort_by(&:length)
     shorter.chars.zip(longer.chars)
   end
 
-  def self.mutation?(pair)
-    pair.first != pair.last
+  def mutation?(n1, n2)
+    n1 != n2
   end
 
 end
