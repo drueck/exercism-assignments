@@ -9,11 +9,11 @@ defmodule ETL do
   """
   @spec transform(Dict.t) :: HashDict.t
   def transform(input) do
-    HashDict.new Enum.flat_map(input, &invert_index/1)
+    Enum.flat_map(input, &invert_index/1) |> HashDict.new
   end
 
   defp invert_index({ letter, words }) do
-    Enum.map words, &({ String.downcase(&1), letter })
+    Enum.map words, &{ String.downcase(&1), letter }
   end
 
 end
