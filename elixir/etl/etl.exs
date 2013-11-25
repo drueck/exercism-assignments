@@ -9,11 +9,11 @@ defmodule ETL do
   """
   @spec transform(Dict.t) :: HashDict.t
   def transform(input) do
-    Enum.to_list(input) |> transform_list |> HashDict.new
+    Enum.to_list(input) |> invert_index |> HashDict.new
   end
 
-  defp transform_list(input) do
-    lc { letter, words } inlist input, word inlist words do
+  defp invert_index(list) do
+    lc { letter, words } inlist list, word inlist words do
       { String.downcase(word), letter }
     end
   end
