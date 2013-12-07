@@ -1,9 +1,11 @@
 defmodule Accumulate do
 
   @doc """
-  Returns a collection after applying a given function to every element in a provided collection.
+  Returns a collection after applying a given function to every element in a
+  provided collection.
 
-  Try to do this exercise without using map!
+  For the purpose of the exercise, implemented without list comprehensions or
+  Enum functions besides to_list.
   """
 
   @spec accumulate(Enum.t, (any -> as_boolean(term))) :: list
