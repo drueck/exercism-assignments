@@ -10,14 +10,14 @@ defmodule Accumulate do
 
   @spec accumulate(Enum.t, (any -> as_boolean(term))) :: list
   def accumulate(collection, function) do
-    reduce(Enum.to_list(collection), function, [])
-      |> reduce(fn(x) -> x end, [])
+    reduce(Enum.to_list(collection), [], function)
+      |> reduce([], fn(x) -> x end)
   end
 
-  defp reduce([], function, result), do: result
+  defp reduce([], result, function), do: result
 
-  defp reduce([head | tail], function, result) do
-    reduce(tail, function, [function.(head) | result])
+  defp reduce([head | tail], result, function) do
+    reduce(tail, [function.(head) | result], function)
   end
 
 end
