@@ -2,8 +2,6 @@ defmodule Strain do
 
   @doc """
   Keep all entries in a collection that return true for a given function.
-
-  Using filter would work, but don't use it.
   """
   @spec keep(Enum.t, (any -> as_boolean(term))) :: list
   def keep(collection, function) do
@@ -14,14 +12,10 @@ defmodule Strain do
 
   @doc """
   DIscard all entries in a collection that return true for a given function.
-
-  Using reject would work, but don't use it.
   """
   @spec discard(Enum.t, (any -> as_boolean(term))) :: list
   def discard(collection, function) do
-    Enum.reduce(collection, [], fn(x, acc) ->
-      if function.(x), do: acc, else: [ x | acc ]
-    end) |> Enum.reverse
+    keep(collection, fn(x) -> !function.(x) end)
   end
 
 end
