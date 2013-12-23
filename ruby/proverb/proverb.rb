@@ -30,11 +30,7 @@ class Proverb
   end
 
   def ultimate_cause
-    if !qualifier.empty?
-      "#{qualifier} #{items.first}"
-    else
-      items.first
-    end
+    "#{qualifier} #{items.first}".lstrip
   end
 
 end
