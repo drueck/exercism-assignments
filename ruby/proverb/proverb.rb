@@ -2,7 +2,7 @@ class Proverb
 
   def initialize(*things, qualifier: "")
     @things = things
-    @qualifier = qualifier
+    @smallest_thing_qualifier = qualifier
   end
 
   def to_s
@@ -11,7 +11,7 @@ class Proverb
 
   private
 
-  attr_reader :things, :qualifier
+  attr_reader :things, :smallest_thing_qualifier
 
   def lines
     standard_lines << final_line
@@ -30,7 +30,7 @@ class Proverb
   end
 
   def smallest_thing
-    "#{qualifier} #{things.first}".lstrip
+    "#{smallest_thing_qualifier} #{things.first}".lstrip
   end
 
 end
