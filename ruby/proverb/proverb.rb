@@ -18,10 +18,10 @@ class Proverb
   end
 
   def standard_lines
-    things.each_cons(2).map { |(smaller, larger)| line(smaller, larger) }
+    things.each_cons(2).map { |(smaller, larger)| standard_line(smaller, larger) }
   end
 
-  def line(smaller_thing, larger_thing)
+  def standard_line(smaller_thing, larger_thing)
     "For want of a #{smaller_thing} the #{larger_thing} was lost."
   end
 
