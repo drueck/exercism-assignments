@@ -30,7 +30,7 @@ defmodule SpaceAge do
   end
 
   defp orbital_period(planet) do
-    Dict.get(@orbital_periods, planet, 0)
+    Dict.fetch!(@orbital_periods, planet)
   end
 
 end
