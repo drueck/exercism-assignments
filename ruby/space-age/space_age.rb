@@ -1,5 +1,11 @@
 class SpaceAge
 
+  def initialize(seconds)
+    @seconds = seconds
+  end
+
+  attr_reader :seconds
+
   orbital_periods_in_seconds = {
     mercury: 7600543.81992,
     venus: 19414149.052176,
@@ -16,11 +22,5 @@ class SpaceAge
       (seconds / seconds_per_year).round(2)
     end
   end
-
-  def initialize(seconds)
-    @seconds = seconds
-  end
-
-  attr_reader :seconds
 
 end
