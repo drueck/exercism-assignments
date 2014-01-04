@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require "minitest/pride"
 require_relative 'proverb'
 
 class ProverbTest < MiniTest::Unit::TestCase
@@ -24,6 +23,13 @@ class ProverbTest < MiniTest::Unit::TestCase
       "For want of a shoe the horse was lost.\n" +
       "For want of a horse the rider was lost.\n" +
       "And all for the want of a nail."
+    assert_equal expected, proverb.to_s
+  end
+
+  def test_proverb_does_not_hard_code_the_rhyme_dictionary
+    proverb = Proverb.new('key', 'value')
+    expected = "For want of a key the value was lost.\n" +
+      "And all for the want of a key."
     assert_equal expected, proverb.to_s
   end
 
