@@ -1,10 +1,17 @@
 class Gigasecond
 
+  @@a_billion_seconds_in_days = 1_000_000_000 / (60 * 60 * 24)
+
   def initialize(from_date)
-    a_billion_seconds_in_days = 11_574
-    @date = from_date + a_billion_seconds_in_days
+    @from_date = from_date
   end
 
-  attr_reader :date
+  def date
+    from_date + @@a_billion_seconds_in_days
+  end
+
+  private
+
+  attr_reader :from_date
 
 end
