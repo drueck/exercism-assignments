@@ -38,10 +38,7 @@ defmodule ListOps do
 
   @spec concat([[any]]) :: [any]
   def concat(ll) do
-    reduce(ll, [], fn(acc, l) ->
-      reduce(l, acc, fn(acc, x) -> [x | acc] end)
-    end)
-    |> reverse
+    reduce(reverse(ll), [], fn(acc, l) -> append(l, acc) end)
   end
 
 end
