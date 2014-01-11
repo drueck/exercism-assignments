@@ -1,10 +1,7 @@
 class House
 
   def verse(n)
-    components = ["This is the"]
-    components += additions_for_verse(n)
-    components << "house that Jack built.\n"
-    components.join(" ")
+    "This is the " + additions_for_verse(n) + "house that Jack built.\n"
   end
 
   def verses(from, to)
@@ -33,8 +30,8 @@ class House
 
   def additions_for_verse(n)
     first_verse_with_addition = 2
-    return [] unless n >= first_verse_with_addition
-    return additions.slice(first_verse_with_addition..n).reverse
+    return "" unless n >= first_verse_with_addition
+    return additions.slice(first_verse_with_addition..n).reverse.join(" ") + " "
   end
 
 end
