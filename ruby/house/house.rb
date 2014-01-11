@@ -12,8 +12,8 @@ class House
 
   def additions
     [
-      :no_verse_zero,
-      :no_addition_for_verse_one,
+      "",
+      "",
       "malt that lay in the",
       "rat that ate the",
       "cat that killed the",
@@ -29,9 +29,7 @@ class House
   end
 
   def additions_for_verse(n)
-    first_verse_with_addition = 2
-    return "" unless n >= first_verse_with_addition
-    return additions.slice(first_verse_with_addition..n).reverse.join(" ") + " "
+    (additions.slice(0..n).reject(&:empty?).reverse.join(" ") + " ").lstrip
   end
 
 end
