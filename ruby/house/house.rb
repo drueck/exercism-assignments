@@ -1,7 +1,7 @@
 class House
 
   def verse(n)
-    "This is the " + additions_for_verse(n) + "house that Jack built.\n"
+    "This is the " + additions_for_verse(n)
   end
 
   def verses(from, to)
@@ -13,7 +13,7 @@ class House
   def additions
     [
       :no_verse_zero,
-      :no_addition_for_verse_one,
+      "house that Jack built.\n",
       "malt that lay in the",
       "rat that ate the",
       "cat that killed the",
@@ -29,8 +29,7 @@ class House
   end
 
   def additions_for_verse(n)
-    first_verse_with_addition = 2
-    (additions.slice(first_verse_with_addition..n).reverse.join(" ") + " ").lstrip
+    additions.slice(1..n).reverse.join(" ")
   end
 
 end
