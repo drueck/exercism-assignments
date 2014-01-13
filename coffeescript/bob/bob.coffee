@@ -19,7 +19,7 @@ class MessageMood
     @msg.trim() == ""
 
   isShouting: ->
-    @msg.toUpperCase() == @msg
+    !this.isSilence() && @msg.toUpperCase() == @msg
 
   isAsking: ->
     @msg.slice(-1) == "?"
