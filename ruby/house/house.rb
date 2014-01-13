@@ -1,7 +1,7 @@
 class House
 
   def verse(n)
-    "This is the " + additions_for_verse(n)
+    "This is the " + additions_for_verse(n) + ".\n"
   end
 
   def verses(from, to)
@@ -13,7 +13,7 @@ class House
   def additions
     [
       :no_verse_zero,
-      "house that Jack built.\n",
+      "house that Jack built",
       "malt that lay in the",
       "rat that ate the",
       "cat that killed the",
