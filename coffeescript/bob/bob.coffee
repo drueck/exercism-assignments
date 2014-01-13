@@ -13,14 +13,9 @@ class MessageMood
 
   constructor: (@msg) ->
 
-  isSilence: ->
-    @msg.trim() == ""
-
-  isShouting: ->
-    !this.isSilence() && @msg.toUpperCase() == @msg
-
-  isAsking: ->
-    @msg.slice(-1) == "?"
+  isSilence: -> @msg.trim() == ""
+  isShouting: -> !this.isSilence() && @msg.toUpperCase() == @msg
+  isAsking: -> @msg.slice(-1) == "?"
 
 
 module.exports = Bob
