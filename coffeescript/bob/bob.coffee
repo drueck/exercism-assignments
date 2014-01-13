@@ -2,14 +2,12 @@ class Bob
 
   hey: (msg) ->
     mood = new MessageMood(msg)
-    if mood.isSilence()
-      "Fine. Be that way!"
-    else if mood.isShouting()
-      "Woah, chill out!"
-    else if mood.isAsking()
-      "Sure."
-    else
-      "Whatever."
+    switch
+      when mood.isSilence() then "Fine. Be that way!"
+      when mood.isShouting() then "Woah, chill out!"
+      when mood.isAsking() then "Sure."
+      else "Whatever."
+
 
 class MessageMood
 
@@ -23,5 +21,6 @@ class MessageMood
 
   isAsking: ->
     @msg.slice(-1) == "?"
+
 
 module.exports = Bob
