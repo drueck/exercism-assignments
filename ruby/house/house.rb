@@ -12,7 +12,6 @@ class House
 
   def additions
     [
-      :no_verse_zero,
       "house that Jack built",
       "malt that lay in the",
       "rat that ate the",
@@ -29,7 +28,7 @@ class House
   end
 
   def additions_for_verse(n)
-    additions.slice(1..n).reverse.join(" ")
+    additions.take(n).reverse.join(" ")
   end
 
 end
