@@ -13,7 +13,7 @@ class Scrabble
   end
 
   def letter_values
-    @letter_values ||= ScrabbleLetterValues.new
+    @letter_values ||= ScrabbleLetterValues
   end
 
   private
@@ -22,29 +22,27 @@ class Scrabble
 
 end
 
-class ScrabbleLetterValues
+module ScrabbleLetterValues
 
-  def value(letter)
+  def self.value(letter)
     letter_values.fetch(letter.upcase) { 0 }
   end
 
-  private
-
-  def letter_values
-    LETTER_VALUES
+  class << self
+    private
+    def letter_values
+      @letter_values ||= {
+        1 => %w{ A E I O U L N R S T },
+        2 => %w{ D G },
+        3 => %w{ B C M P },
+        4 => %w{ F H V W Y },
+        5 => %w{ K },
+        8 => %w{ J X },
+        10 => %w{ Q Z }
+      }.each_with_object({}) { |(score, letters), values|
+        letters.each { |letter| values[letter] = score }
+      }
+    end
   end
-
-  LETTER_VALUES = {
-    1 => %w{ A E I O U L N R S T },
-    2 => %w{ D G },
-    3 => %w{ B C M P },
-    4 => %w{ F H V W Y },
-    5 => %w{ K },
-    8 => %w{ J X },
-    10 => %w{ Q Z }
-  }.each_with_object({}) { |(score, letters), values|
-    letters.each { |letter| values[letter] = score }
-  }
-  private_constant :LETTER_VALUES
 
 end
