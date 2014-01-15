@@ -24,6 +24,8 @@ end
 
 module ScrabbleLetterValues
 
+  private
+
   def value(letter)
     letter_values.fetch(letter.upcase) { 0 }
   end
