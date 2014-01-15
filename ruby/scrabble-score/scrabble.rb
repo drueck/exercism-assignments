@@ -9,7 +9,7 @@ class Scrabble
   end
 
   def score
-    word.chars.reduce(0) { |score, letter| score += value(letter) }
+    word.chars.reduce(0) { |score, letter| score + value(letter) }
   end
 
   private
