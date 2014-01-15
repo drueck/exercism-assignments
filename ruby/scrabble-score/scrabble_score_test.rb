@@ -39,8 +39,4 @@ class ScrabbleTest < MiniTest::Unit::TestCase
     assert_equal 13, Scrabble.score("alacrity")
   end
 
-  def test_private_things_are_private
-    assert_raises(NoMethodError) { ScrabbleLetterValues.letter_values }
-  end
-
 end
