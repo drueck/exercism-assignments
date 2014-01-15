@@ -9,16 +9,26 @@ class Scrabble
   end
 
   def score
-    word.chars.reduce(0) { |score, letter| score + value(letter) }
+    word.chars.reduce(0) { |score, letter| score + letter_values.value(letter) }
+  end
+
+  def letter_values
+    @letter_values ||= ScrabbleLetterValues.new
   end
 
   private
 
   attr_reader :word
 
+end
+
+class ScrabbleLetterValues
+
   def value(letter)
     letter_values.fetch(letter.upcase) { 0 }
   end
+
+  private
 
   def letter_values
     LETTER_VALUES
