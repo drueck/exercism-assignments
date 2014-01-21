@@ -6,11 +6,11 @@ defmodule Words do
   end
 
   defp split_into_words(phrase) do
-    String.downcase(phrase) |> String.split(%r/\W+/) |> Enum.reject(&1 == "")
+    String.downcase(phrase) |> String.split(%r/\W+/) |> Enum.reject(&(&1 == ""))
   end
 
   defp occurrences(words, word) do
-    Enum.count(words, &1 == word)
+    Enum.count(words, &(&1 == word))
   end
 
 end
