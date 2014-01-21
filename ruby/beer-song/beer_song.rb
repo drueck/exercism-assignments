@@ -1,15 +1,25 @@
-class Beer
+class BeerSong
 
   def verse(n_bottles)
     BeerVerse.new(n_bottles).to_s
   end
 
-  def sing(starting_bottles, ending_bottles=0)
+  def verses(starting_bottles=default_starting_bottles, ending_bottles=0)
     if starting_bottles == ending_bottles
       verse(ending_bottles) + "\n"
     else
-      verse(starting_bottles) + "\n" + sing(starting_bottles-1, ending_bottles)
+      verse(starting_bottles) + "\n" + verses(starting_bottles-1, ending_bottles)
     end
+  end
+
+  def sing
+    verses
+  end
+
+  private
+
+  def default_starting_bottles
+    99
   end
 
 end
