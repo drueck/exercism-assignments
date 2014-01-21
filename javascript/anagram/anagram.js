@@ -1,17 +1,23 @@
-function Anagram(word) {
-  this.letters = this.sortLetters(word);
-}
+module.exports = function Anagram(word) {
 
-Anagram.prototype.match = function(words) {
-  return words.filter(this.isAnagram, this);
+  word = word.toLowerCase();
+  sortedWord = sorted(word);
+
+  function match(words) {
+    return words.filter(isAnagram);
+  }
+
+  function isAnagram(otherWord) {
+    otherWord = otherWord.toLowerCase();
+    return word !== otherWord && sortedWord == sorted(otherWord);
+  }
+
+  function sorted(word) {
+    return word.split("").sort().join("");
+  }
+
+  return {
+    match: match
+  };
+
 };
-
-Anagram.prototype.sortLetters = function(word) {
-  return word.split("").sort().join("");
-};
-
-Anagram.prototype.isAnagram = function(word) {
-  return this.sortLetters(word) === this.letters;
-};
-
-module.exports = Anagram;
