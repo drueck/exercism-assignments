@@ -20,24 +20,16 @@ defmodule Roman do
   Convert the number to a roman number.
   """
   @spec numerals(pos_integer) :: String.t
-
   def numerals(arabic) do
-    numerals(arabic, "", @numeral_pairs)
+    { _ , roman } = Enum.reduce(@numeral_pairs, { arabic, "" }, &append_chars/2)
+    roman
   end
 
-  defp numerals(0, roman, _), do: roman
-  defp numerals(arabic, roman, numeral_pairs) do
-    { value, chars, remaining_pairs } = next_numeral_pair(arabic, numeral_pairs)
-    numerals(arabic - value, roman <> chars, remaining_pairs)
-  end
-
-  defp next_numeral_pair(arabic, numeral_pairs) do
-    { value, chars } = Enum.find(numeral_pairs, fn({ value, _ }) -> value <= arabic end)
-    { value, chars, relevant_pairs(numeral_pairs, arabic - value) }
-  end
-
-  defp relevant_pairs(numeral_pairs, number) do
-    Enum.drop_while(numeral_pairs, fn({ value, _ }) -> value > number end)
+  defp append_chars({ value, chars }, { arabic, roman }) do
+    case arabic < value do
+      true -> { arabic, roman }
+      false -> append_chars({ value, chars }, { arabic - value, roman <> chars })
+    end
   end
 
 end
