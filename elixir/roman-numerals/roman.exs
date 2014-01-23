@@ -1,5 +1,27 @@
 defmodule Roman do
 
+  @doc """
+  Convert the number to a roman number.
+  """
+  @spec numerals(pos_integer) :: String.t
+
+  def numerals(number) do
+    server = NumeralServer.start_link
+    numerals(number, "", server)
+  end
+
+  defp numerals(0, numerals, _), do: numerals
+  defp numerals(number, numerals, server) do
+    { value, chars } = NumeralServer.next_numeral_pair(server, number)
+    numerals(number - value, numerals <> chars, server)
+  end
+
+end
+
+defmodule NumeralServer do
+
+  use GenServer.Behaviour
+
   @numerals [
     { 1000, "M" },
     { 900, "CM" },
@@ -16,22 +38,26 @@ defmodule Roman do
     { 1, "I" }
   ]
 
-  @doc """
-  Convert the number to a roman number.
-  """
-  @spec numerals(pos_integer) :: String.t
-  def numerals(number) do
-    numerals(number, "")
+  def start_link(numeral_pairs // @numerals) do
+    { :ok, server } = :gen_server.start_link NumeralServer, numeral_pairs, []
+    server
   end
 
-  defp numerals(0, numerals), do: numerals
-  defp numerals(number, numerals) do
-    { value, chars } = next_numeral_pair(number)
-    numerals(number - value, numerals <> chars)
+  def next_numeral_pair(server, number) do
+    :gen_server.call(server, { :next, number })
   end
 
-  defp next_numeral_pair(number) do
-    Enum.find(@numerals, fn({ value, _ }) -> number >= value end)
+  def init(numeral_pairs) do
+    { :ok, numeral_pairs }
+  end
+
+  def handle_call({ :next, number }, _from, numeral_pairs) do
+    { value, chars } = Enum.find(numeral_pairs, fn({ value, _ }) -> value <= number end)
+    { :reply, { value, chars }, remove_excess_pairs(numeral_pairs, number - value) }
+  end
+
+  defp remove_excess_pairs(numeral_pairs, number) do
+    Enum.drop_while(numeral_pairs, fn({ value, _ }) -> value > number end)
   end
 
 end
