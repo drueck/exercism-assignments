@@ -1,28 +1,6 @@
 defmodule Roman do
 
-  @doc """
-  Convert the number to a roman number.
-  """
-  @spec numerals(pos_integer) :: String.t
-
-  def numerals(number) do
-    server = NumeralServer.start_link
-    numerals(number, "", server)
-  end
-
-  defp numerals(0, numerals, _), do: numerals
-  defp numerals(number, numerals, server) do
-    { value, chars } = NumeralServer.next_numeral_pair(server, number)
-    numerals(number - value, numerals <> chars, server)
-  end
-
-end
-
-defmodule NumeralServer do
-
-  use GenServer.Behaviour
-
-  @numerals [
+  @numeral_pairs [
     { 1000, "M" },
     { 900, "CM" },
     { 500, "D" },
@@ -38,25 +16,27 @@ defmodule NumeralServer do
     { 1, "I" }
   ]
 
-  def start_link(numeral_pairs // @numerals) do
-    { :ok, server } = :gen_server.start_link NumeralServer, numeral_pairs, []
-    server
+  @doc """
+  Convert the number to a roman number.
+  """
+  @spec numerals(pos_integer) :: String.t
+
+  def numerals(arabic) do
+    numerals(arabic, "", @numeral_pairs)
   end
 
-  def next_numeral_pair(server, number) do
-    :gen_server.call(server, { :next, number })
+  defp numerals(0, roman, _), do: roman
+  defp numerals(arabic, roman, numeral_pairs) do
+    { value, chars, remaining_pairs } = next_numeral_pair(arabic, numeral_pairs)
+    numerals(arabic - value, roman <> chars, remaining_pairs)
   end
 
-  def init(numeral_pairs) do
-    { :ok, numeral_pairs }
+  defp next_numeral_pair(arabic, numeral_pairs) do
+    { value, chars } = Enum.find(numeral_pairs, fn({ value, _ }) -> value <= arabic end)
+    { value, chars, relevant_pairs(numeral_pairs, arabic - value) }
   end
 
-  def handle_call({ :next, number }, _from, numeral_pairs) do
-    { value, chars } = Enum.find(numeral_pairs, fn({ value, _ }) -> value <= number end)
-    { :reply, { value, chars }, remove_excess_pairs(numeral_pairs, number - value) }
-  end
-
-  defp remove_excess_pairs(numeral_pairs, number) do
+  defp relevant_pairs(numeral_pairs, number) do
     Enum.drop_while(numeral_pairs, fn({ value, _ }) -> value > number end)
   end
 
