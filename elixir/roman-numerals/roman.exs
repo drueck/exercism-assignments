@@ -27,11 +27,11 @@ defmodule Roman do
   defp numerals(0, numerals), do: numerals
   defp numerals(number, numerals) do
     { value, chars } = next_numeral_pair(number)
-    numerals(number - value , numerals <> chars)
+    numerals(number - value, numerals <> chars)
   end
 
   defp next_numeral_pair(number) do
-    Enum.find(@numerals, fn({value, _}) -> number >= value end)
+    Enum.find(@numerals, fn({ value, _ }) -> number >= value end)
   end
 
 end
