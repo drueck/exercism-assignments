@@ -22,13 +22,13 @@ defmodule Roman do
   @spec numerals(pos_integer) :: String.t
   def numerals(arabic) do
     { _ , roman } = Enum.reduce(@numeral_pairs, { arabic, "" }, &append_chars/2)
-    roman
+    iolist_to_binary(roman)
   end
 
   defp append_chars({ value, chars }, { arabic, roman }) do
     case arabic < value do
       true -> { arabic, roman }
-      false -> append_chars({ value, chars }, { arabic - value, roman <> chars })
+      false -> append_chars({ value, chars }, { arabic - value, [roman | chars] })
     end
   end
 
