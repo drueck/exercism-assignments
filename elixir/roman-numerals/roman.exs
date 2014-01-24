@@ -26,9 +26,10 @@ defmodule Roman do
   end
 
   defp append_chars({ value, chars }, { arabic, roman }) do
-    case arabic < value do
-      true -> { arabic, roman }
-      false -> append_chars({ value, chars }, { arabic - value, [roman | chars] })
+    if arabic < value do
+      { arabic, roman }
+    else
+      append_chars({ value, chars }, { arabic - value, [roman | chars] })
     end
   end
 
