@@ -14,7 +14,8 @@ defmodule ExtendedEnum do
   10
 
   """
-  @spec reduce_with_index(Enum.t, any, (any, any, non_neg_integer -> any)) :: any
+  @type acc :: any
+  @spec reduce_with_index(Enum.t, acc, (any, acc, non_neg_integer -> any)) :: any
   def reduce_with_index(list, acc, fun) do
     { acc, _ } = Enum.reduce(list, { acc, 0 }, fn(x, { acc, index }) ->
       { fun.(x, acc, index), index + 1 }
