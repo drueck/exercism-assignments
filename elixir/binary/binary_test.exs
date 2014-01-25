@@ -8,7 +8,7 @@ ExUnit.start
 
 defmodule BinaryTest do
   use ExUnit.Case, async: true
-  doctest ExtendedEnum
+  doctest Binary
 
   test "binary 1 is decimal 1" do
     assert 1 == Binary.to_decimal("1")
