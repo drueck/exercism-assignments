@@ -11,7 +11,7 @@ School.prototype.add = function(student, grade) {
 };
 
 School.prototype.grade = function(level) {
-  return this.db[level] || [];
+  return this.db[level] ? clone(this.db[level]) : [];
 };
 
 School.prototype.sort = function() {
