@@ -3,17 +3,17 @@ defmodule Allergies do
   use Bitwise, only_operators: true
 
   @allergy_flags [
-    { 128, "cats" },
-    { 64, "pollen" },
-    { 32, "chocolate" },
-    { 16, "tomatoes" },
-    { 8, "strawberries" },
-    { 4, "shellfish" },
-    { 2, "peanuts" },
-    { 1, "eggs" }
+    { "cats", 128 },
+    { "pollen", 64 },
+    { "chocolate", 32 },
+    { "tomatoes", 16 },
+    { "strawberries", 8 },
+    { "shellfish", 4 },
+    { "peanuts", 2 },
+    { "eggs", 1 }
   ]
 
-  @allergy_dict HashDict.new(@allergy_flags, fn({ f, a }) -> { a, f } end)
+  @allergy_dict HashDict.new @allergy_flags
 
   @doc """
   List the allergies for which the corresponding flag bit is true.
@@ -23,7 +23,7 @@ defmodule Allergies do
   """
   @spec list(non_neg_integer) :: [String.t]
   def list(score) do
-    Enum.reduce(@allergy_flags, [], fn({ flag, allergy }, allergies) ->
+    Enum.reduce(@allergy_flags, [], fn({ allergy, flag }, allergies) ->
       if flag_set?(score, flag), do: [ allergy | allergies ], else: allergies
     end)
   end
