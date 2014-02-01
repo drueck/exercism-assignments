@@ -3,14 +3,14 @@ defmodule Allergies do
   use Bitwise, only_operators: true
 
   @allergy_flags [
-    { "cats", 128 },
-    { "pollen", 64 },
-    { "chocolate", 32 },
-    { "tomatoes", 16 },
-    { "strawberries", 8 },
-    { "shellfish", 4 },
+    { "eggs", 1 },
     { "peanuts", 2 },
-    { "eggs", 1 }
+    { "shellfish", 4 },
+    { "strawberries", 8 },
+    { "tomatoes", 16 },
+    { "chocolate", 32 },
+    { "pollen", 64 },
+    { "cats", 128 }
   ]
 
   @allergy_dict HashDict.new @allergy_flags
@@ -23,9 +23,7 @@ defmodule Allergies do
   """
   @spec list(non_neg_integer) :: [String.t]
   def list(score) do
-    Enum.reduce(@allergy_flags, [], fn({ allergy, flag }, allergies) ->
-      if flag_set?(score, flag), do: [ allergy | allergies ], else: allergies
-    end)
+    Enum.filter_map(@allergy_flags, &flag_set?(score, elem(&1, 1)), &elem(&1, 0))
   end
 
   @doc """
