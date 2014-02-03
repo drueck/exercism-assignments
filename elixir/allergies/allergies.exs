@@ -23,7 +23,9 @@ defmodule Allergies do
   """
   @spec list(non_neg_integer) :: [String.t]
   def list(score) do
-    Enum.filter_map(@allergy_flags, &flag_set?(score, elem(&1, 1)), &elem(&1, 0))
+    @allergy_flags
+      |> Stream.filter(fn({ _, flag }) -> flag_set?(score, flag) end)
+      |> Enum.map(fn({ item, _ }) -> item end)
   end
 
   @doc """
