@@ -15,7 +15,7 @@ defmodule Atbash do
       |> String.to_char_list!
       |> Stream.map(&translate/1)
       |> Stream.chunk(5, 5, [])
-      |> Enum.map_join(" ", &(String.from_char_list!/1))
+      |> Enum.map_join(" ", &String.from_char_list!/1)
   end
 
   defp translate(char) when char >= ?1 and char <= ?9, do: char
