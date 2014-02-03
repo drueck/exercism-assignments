@@ -13,8 +13,8 @@ defmodule Atbash do
     String.downcase(plaintext)
       |> String.replace(%r/[^a-z0-9]/, "")
       |> String.to_char_list!
-      |> Enum.map(&translate/1)
-      |> Enum.chunk(5, 5, [])
+      |> Stream.map(&translate/1)
+      |> Stream.chunk(5, 5, [])
       |> Enum.map_join(" ", &(String.from_char_list!(&1)))
   end
 
