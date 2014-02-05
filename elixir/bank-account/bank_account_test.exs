@@ -49,6 +49,8 @@ defmodule BankAccountTest do
 
   test "incrementing balance from another process then checking it from test process", context do
     assert BankAccount.balance(context[:account]) == 0
+    BankAccount.update(context[:account], 10)
+    assert BankAccount.balance(context[:account]) == 10
     this = self()
     Process.spawn(fn ->
       BankAccount.update(context[:account], 20)
@@ -59,7 +61,7 @@ defmodule BankAccountTest do
     after
       1000 -> flunk("Timeout")
     end
-    assert BankAccount.balance(context[:account]) == 20
+    assert BankAccount.balance(context[:account]) == 30
   end
 
   test "close_bank causes the process to exit" do

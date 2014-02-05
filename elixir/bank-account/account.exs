@@ -53,8 +53,8 @@ defmodule BankAccount do
       { :balance, pid } ->
         send(pid, { :balance, balance })
         await(balance)
-      { :update, new_balance } ->
-        await(new_balance)
+      { :update, amount } ->
+        await(balance + amount)
       :close ->
     end
   end
