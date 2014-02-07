@@ -1,4 +1,5 @@
 defmodule BankAccount do
+  use GenServer.Behaviour
 
   @moduledoc """
   A bank account that supports access from multiple processes.
@@ -14,7 +15,8 @@ defmodule BankAccount do
   """
   @spec open_bank() :: account
   def open_bank() do
-    spawn_link(__MODULE__, :start, [])
+    { :ok, account } = :gen_server.start_link(__MODULE__, 0, [])
+    account
   end
 
   @doc """
@@ -22,7 +24,7 @@ defmodule BankAccount do
   """
   @spec close_bank(account) :: none
   def close_bank(account) do
-    send(account, :close)
+    :gen_server.cast(account, { :close })
   end
 
   @doc """
@@ -30,10 +32,7 @@ defmodule BankAccount do
   """
   @spec balance(account) :: integer
   def balance(account) do
-    send(account, { :balance, self })
-    receive do
-      { :balance, balance } -> balance
-    end
+    :gen_server.call(account, { :balance })
   end
 
   @doc """
@@ -41,22 +40,25 @@ defmodule BankAccount do
   """
   @spec update(account, integer) :: any
   def update(account, amount) do
-    send(account, { :update, amount })
+    :gen_server.cast(account, { :update, amount })
   end
 
-  def start do
-    await(0)
+  # GenServer API
+
+  def init(balance) do
+    { :ok, balance }
   end
 
-  defp await(balance) do
-    receive do
-      { :balance, pid } ->
-        send(pid, { :balance, balance })
-        await(balance)
-      { :update, amount } ->
-        await(balance + amount)
-      :close ->
-    end
+  def handle_call({ :balance }, _from, balance) do
+    { :reply, balance, balance }
+  end
+
+  def handle_cast({ :update, amount }, balance) do
+    { :noreply, balance + amount }
+  end
+
+  def handle_cast({ :close }, balance) do
+    { :stop, :normal, balance }
   end
 
 end
