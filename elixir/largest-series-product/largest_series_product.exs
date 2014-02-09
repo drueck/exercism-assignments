@@ -28,7 +28,7 @@ defmodule Series do
   end
 
   defp product(list) do
-    Enum.reduce(list, &(&1*&2))
+    Enum.reduce(list, &(&1 * &2))
   end
 
 end
