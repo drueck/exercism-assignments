@@ -12,19 +12,21 @@ function sing(fromBottles, toBottles) {
 }
 
 function verse(bottles) {
-  var remainingBottles = bottles - 1;
-  if (remainingBottles === -1) { remainingBottles = 99; }
-
   return capitalized(soMany(bottles)) + " of beer on the wall, " +
     soMany(bottles) + " of beer.\n" +
     drinkOrBuyMore(bottles) + ", " +
-    soMany(remainingBottles) + " of beer on the wall.\n";
+    soMany(remaining(bottles)) + " of beer on the wall.\n";
 }
 
 function soMany(bottles) {
   if (bottles === 0) { return "no more bottles"; }
   if (bottles === 1) { return "1 bottle"; }
   return bottles + " bottles";
+}
+
+function remaining(bottles) {
+  var remainingBottles = bottles - 1;
+  return remainingBottles < 0 ? 99 : remainingBottles;
 }
 
 function drinkOrBuyMore(bottles) {
