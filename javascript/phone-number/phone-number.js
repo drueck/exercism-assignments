@@ -1,22 +1,5 @@
 module.exports = function Phone(formattedNumber) {
 
-  var EXPECTED_LENGTH = 10;
-  var INVALID_NUMBER = "0000000000";
-
-  function withoutFormatting(formattedNumber) {
-    return formattedNumber.replace(/\D/g, '');
-  }
-
-  function tenDigits(allDigits) {
-    if(allDigits.length === EXPECTED_LENGTH) {
-      return allDigits;
-    }
-    if(allDigits.length === EXPECTED_LENGTH + 1 && allDigits[0] === '1') {
-      return allDigits.substr(1);
-    }
-    return INVALID_NUMBER;
-  }
-
   var digits = tenDigits(withoutFormatting(formattedNumber));
 
   return {
@@ -44,3 +27,20 @@ module.exports = function Phone(formattedNumber) {
   };
 
 };
+
+var EXPECTED_LENGTH = 10;
+var INVALID_NUMBER = "0000000000";
+
+function withoutFormatting(formattedNumber) {
+  return formattedNumber.replace(/\D/g, '');
+}
+
+function tenDigits(allDigits) {
+  if(allDigits.length === EXPECTED_LENGTH) {
+    return allDigits;
+  }
+  if(allDigits.length === EXPECTED_LENGTH + 1 && allDigits[0] === '1') {
+    return allDigits.substr(1);
+  }
+  return INVALID_NUMBER;
+}
