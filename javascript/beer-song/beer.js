@@ -1,42 +1,42 @@
 module.exports = {
-
   verse: verse,
-
-  sing: function sing(from_bottles, to_bottles) {
-
-    to_bottles = to_bottles || 0;
-
-    if(from_bottles === to_bottles) {
-      return verse(from_bottles);
-    }
-
-    return verse(from_bottles) + "\n" + sing(from_bottles - 1, to_bottles);
-
-  }
-
+  sing: sing
 };
 
+function sing(fromBottles, toBottles) {
+  toBottles = toBottles || 0;
+  if(fromBottles === toBottles) {
+    return verse(fromBottles);
+  }
+  return verse(fromBottles) + "\n" + sing(fromBottles - 1, toBottles);
+}
+
 function verse(bottles) {
+  var remainingBottles = bottles - 1;
+  if (remainingBottles === -1) { remainingBottles = 99; }
 
-  if(bottles === 0) {
-    return "No more bottles of beer on the wall, no more bottles of beer.\n" +
-      "Go to the store and buy some more, 99 bottles of beer on the wall.\n";
-  }
-
-  if(bottles === 1) {
-    return "1 bottle of beer on the wall, 1 bottle of beer.\n" +
-      "Take it down and pass it around, no more bottles of beer on the wall.\n";
-  }
-
-  var bottles_remaining = bottles - 1;
-
-  return bottles + " bottles of beer on the wall, " + bottles + " bottles of beer.\n" +
-    "Take one down and pass it around, " +
-    bottles_remaining + " " + pluralize_bottles(bottles_remaining) + " of beer on the wall.\n";
-
+  return capitalized(soMany(bottles)) + " of beer on the wall, " +
+    soMany(bottles) + " of beer.\n" +
+    drinkOrBuyMore(bottles) + ", " +
+    soMany(remainingBottles) + " of beer on the wall.\n";
 }
 
-function pluralize_bottles(bottles) {
-  return bottles === 1 ? "bottle" : "bottles";
+function soMany(bottles) {
+  if (bottles === 0) { return "no more bottles"; }
+  if (bottles === 1) { return "1 bottle"; }
+  return bottles + " bottles";
 }
 
+function drinkOrBuyMore(bottles) {
+  if (bottles === 0) { return "Go to the store and buy some more"; }
+  return take(bottles) + " down and pass it around";
+}
+
+function take(bottles) {
+  if (bottles === 1) { return "Take it"; }
+  return "Take one";
+}
+
+function capitalized(s) {
+  return s[0].toUpperCase() + s.slice(1);
+}
