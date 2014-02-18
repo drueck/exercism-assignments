@@ -1,4 +1,9 @@
-Code.load_file("bob.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("bob.exs")
+end
+
 ExUnit.start
 
 defmodule TeenagerTest do
@@ -38,6 +43,23 @@ defmodule TeenagerTest do
   end
 
   test "silence" do
-    assert Teenager.hey("") == "Fine. Be that way."
+    assert Teenager.hey("") == "Fine. Be that way!"
+  end
+
+  test "prolonged silence" do
+    assert Teenager.hey("  ") == "Fine. Be that way!"
+  end
+
+  test "only numbers" do
+    assert Teenager.hey("1, 2, 3") == "Whatever."
+  end
+
+  test "question with numbers" do
+    assert Teenager.hey("4?") == "Sure."
+  end
+
+  test "shouting in Russian" do
+    # Hopefully this is Russian for "get out"
+    assert Teenager.hey("УХОДИТЬ") == "Woah, chill out!"
   end
 end

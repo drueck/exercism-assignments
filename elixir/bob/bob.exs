@@ -2,7 +2,7 @@ defmodule Teenager do
 
   def hey(msg) do
     cond do
-      silent?(msg) -> "Fine. Be that way."
+      silent?(msg) -> "Fine. Be that way!"
       shouting?(msg) -> "Woah, chill out!"
       asking?(msg) -> "Sure."
       true -> "Whatever."
@@ -10,11 +10,11 @@ defmodule Teenager do
   end
 
   defp silent?(msg) do
-    msg == ""
+    String.strip(msg) == ""
   end
 
   defp shouting?(msg) do
-    msg == String.upcase(msg)
+    msg == String.upcase(msg) && msg != String.downcase(msg)
   end
 
   defp asking?(msg) do
