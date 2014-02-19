@@ -1,7 +1,11 @@
 function Year(year) {
 
-  this.isLeapYear = multipleOf(4) &&
+  var isLeapYear = multipleOf(4) &&
     (!multipleOf(100) || multipleOf(400));
+
+  this.isLeapYear = function() {
+    return isLeapYear;
+  };
 
   function multipleOf(interval) {
     return year % interval === 0;
@@ -10,5 +14,5 @@ function Year(year) {
 }
 
 module.exports = function isLeapYear(year) {
-  return new Year(year).isLeapYear;
+  return new Year(year).isLeapYear();
 };
