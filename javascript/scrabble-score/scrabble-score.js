@@ -6,7 +6,7 @@ var scores = {
 
 module.exports = function score(word) {
   return letters(word).map(function(letter) {
-    return scores[letter] || 0;
+    return scoreFor(letter);
   }).reduce(function(wordScore, letterScore) {
     return wordScore + letterScore;
   }, 0);
@@ -14,4 +14,8 @@ module.exports = function score(word) {
 
 function letters(word) {
   return (word || "").toLowerCase().split("");
+}
+
+function scoreFor(letter) {
+  return scores[letter] || 0;
 }
