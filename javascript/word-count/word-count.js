@@ -1,10 +1,8 @@
 module.exports = function words(source) {
-
   return lowercaseWords(source).reduce(function(counts, word) {
-    counts[word] = counts.hasOwnProperty(word) ? counts[word] + 1 : 1;
+    counts[word] = counts[word] ? counts[word] + 1 : 1;
     return counts;
-  }, {});
-
+  }, Object.create(null));
 };
 
 function lowercaseWords(str) {
