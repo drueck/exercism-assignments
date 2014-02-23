@@ -1,7 +1,6 @@
 module.exports = function Anagram(word) {
 
-  word = word.toLowerCase();
-  sortedWord = sorted(word);
+  var sortedWord = sorted(word.toLowerCase());
 
   function match(words) {
     return words.filter(isAnagram);
