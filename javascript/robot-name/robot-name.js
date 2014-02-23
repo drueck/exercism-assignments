@@ -43,19 +43,17 @@
   }
 
   function incrementLetters() {
-    if(secondLetterCode < MAX_LETTER_CODE) {
-      secondLetterCode++;
-    } else {
-      incrementFirstLetter();
-      secondLetterCode = MIN_LETTER_CODE;
+    secondLetterCode = nextLetterCode(secondLetterCode);
+    if(secondLetterCode === MIN_LETTER_CODE) {
+      firstLetterCode = nextLetterCode(firstLetterCode);
     }
   }
 
-  function incrementFirstLetter() {
-    if(firstLetterCode < MAX_LETTER_CODE) {
-      firstLetterCode++;
+  function nextLetterCode(currentLetterCode) {
+    if(currentLetterCode < MAX_LETTER_CODE) {
+      return currentLetterCode + 1;
     } else {
-      firstLetterCode = MIN_LETTER_CODE;
+      return MIN_LETTER_CODE;
     }
   }
 

@@ -24,4 +24,5 @@ describe("Robot", function() {
     var newName = robot.name;
     expect(originalName).not.toEqual(newName);
   });
+
 });
