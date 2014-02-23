@@ -2,13 +2,6 @@ module.exports = function School() {
 
   var db = {};
 
-  function roster() {
-    return sortedGrades(db).reduce(function(sortedRoster, grade) {
-      sortedRoster[grade] = studentsInGrade(grade);
-      return sortedRoster;
-    }, {});
-  }
-
   function add(student, grade) {
     if (db.hasOwnProperty(grade)) {
       db[grade].push(student);
@@ -21,6 +14,13 @@ module.exports = function School() {
     return db.hasOwnProperty(grade) ? clone(db[grade]).sort() : [];
   }
 
+  function roster() {
+    return sortedGrades(db).reduce(function(sortedRoster, grade) {
+      sortedRoster[grade] = studentsInGrade(grade);
+      return sortedRoster;
+    }, {});
+  }
+
   return {
     add: add,
     grade: studentsInGrade,
@@ -28,7 +28,6 @@ module.exports = function School() {
   };
 
 };
-
 
 function sortedGrades(db) {
   return Object.keys(db).sort();
