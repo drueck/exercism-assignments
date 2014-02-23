@@ -1,20 +1,3 @@
-function MessageMood(msg) {
-  this.msg = msg;
-}
-
-MessageMood.prototype.isShouting = function() {
-  return this.msg === this.msg.toUpperCase();
-};
-
-MessageMood.prototype.isAsking = function() {
-  return this.msg.charAt(this.msg.length - 1) === "?";
-};
-
-MessageMood.prototype.isSilence = function() {
-  return this.msg === "";
-};
-
-
 function Bob() {}
 
 Bob.prototype.hey = function(msg) {
@@ -23,18 +6,35 @@ Bob.prototype.hey = function(msg) {
   var response;
 
   if(mood.isSilence()) {
-    response = "Fine, be that way.";
+    response = "Fine. Be that way!";
   } else if(mood.isShouting()) {
     response = "Woah, chill out!";
   } else if (mood.isAsking()) {
-    response = "Sure";
+    response = "Sure.";
   } else {
-    response = "Whatever";
+    response = "Whatever.";
   }
 
   return response;
 
 };
 
-global.Bob = Bob;
+module.exports = Bob;
 
+
+function MessageMood(msg) {
+  this.msg = msg;
+}
+
+MessageMood.prototype.isShouting = function() {
+  return this.msg === this.msg.toUpperCase() &&
+    this.msg !== this.msg.toLowerCase();
+};
+
+MessageMood.prototype.isAsking = function() {
+  return this.msg.slice(-1) === "?";
+};
+
+MessageMood.prototype.isSilence = function() {
+  return this.msg.trim() === "";
+};
