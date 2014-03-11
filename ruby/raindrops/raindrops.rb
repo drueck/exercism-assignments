@@ -1,5 +1,9 @@
 class Raindrops
 
+  def self.convert(n)
+    new.convert(n)
+  end
+
   def convert(n)
     sounds = sounds(n)
     sounds.empty? ? n.to_s : sounds
