@@ -3,16 +3,10 @@
 (defn- is-silence [message]
   (= (.trim message) ""))
 
-(defn- is-all-caps [message]
-  (= (.toUpperCase message) message))
-
-(defn- contains-letters [message]
-  (not (= (.toLowerCase message) message)))
-
 (defn- is-shout [message]
   (and
-    (is-all-caps message)
-    (contains-letters message)))
+    (= (.toUpperCase message) message)
+    (not (= (.toLowerCase message) message))))
 
 (defn- is-question [message]
   (.endsWith message "?"))
