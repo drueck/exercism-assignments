@@ -2,11 +2,7 @@
   (require [clojure.string :as string]))
 
 (def invalid-dna #"[^CAGT]")
-
-(def rna-complements {\C \G,
-                      \A \U,
-                      \G \C,
-                      \T \A})
+(def rna-complements {\C \G, \A \U, \G \C, \T \A})
 
 (defn- rna-complement [dna-nucleotide]
   (get rna-complements dna-nucleotide))
