@@ -6,5 +6,8 @@
 (defn- split-into-lowercase-words [string]
   (str/split (str/lower-case string) non-word-characters))
 
+(defn- count-word [counts word]
+  (assoc counts word (inc (get counts word 0))))
+
 (defn word-count [string]
-  (frequencies (split-into-lowercase-words string)))
+  (reduce count-word {} (split-into-lowercase-words string)))
