@@ -1,19 +1,18 @@
 defmodule Triplet do
-
   @doc """
   Calculates sum of a given triplet of integers.
   """
   @spec sum([non_neg_integer]) :: non_neg_integer
-  def sum(triplet) do
-    Enum.sum(triplet)
+  def sum([a, b, c]) do
+    a + b + c
   end
 
   @doc """
   Calculates product of a given triplet of integers.
   """
   @spec product([non_neg_integer]) :: non_neg_integer
-  def product(triplet) do
-    Enum.reduce(triplet, &(&1 * &2))
+  def product([a, b, c]) do
+    a * b * c
   end
 
   @doc """
@@ -29,8 +28,8 @@ defmodule Triplet do
   """
   @spec generate(non_neg_integer, non_neg_integer) :: [list(non_neg_integer)]
   def generate(min, max) do
-    for a <- min..max,
-        b <- (a+1)..max,
+    for a <- min..(max-2),
+        b <- (a+1)..(max-1),
         c <- (b+1)..max,
         pythagorean?(triplet = [a, b, c]), do: triplet
   end
